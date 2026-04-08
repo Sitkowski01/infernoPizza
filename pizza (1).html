@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFERNO Neapolitana</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            overflow-x: hidden;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Animacje */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+        
+        .animate-marquee-slow {
+            animation: marquee 45s linear infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { transform: translateY(-100%); }
+            50% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+
+        .animate-scroll-line {
+            animation: scrollLine 2s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+        }
+
+        /* Typografia outline */
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+        }
+
+        /* Menu Interaktywne - Tła */
+        .menu-bg {
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .menu-bg.active {
+            opacity: 0.4;
+            transform: scale(1);
+        }
+
+        /* Menu Interaktywne - Akordion opisów */
+        .menu-desc {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+            overflow: hidden;
+        }
+        .menu-item:hover .menu-desc {
+            max-height: 120px;
+            opacity: 1;
+            padding-top: 0.5rem;
+        }
+        .menu-item:hover h2 {
+            color: white;
+            transform: translateX(0.5rem);
+        }
+        .menu-item h2 {
+            transition: color 0.4s ease, transform 0.4s ease;
+        }
+
+        /* Ustawienie zaznaczania tekstu */
+        ::selection {
+            background-color: #dc2626;
+            color: white;
+        }
+    </style>
+</head>
+<body class="selection:bg-red-600 antialiased">
+
+    <!-- Pływający Header -->
+    <header class="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-center mix-blend-difference">
+        <div class="flex items-center gap-2">
+            <i data-lucide="flame" class="w-5 h-5 text-red-500"></i>
+            <span class="font-black tracking-tighter text-lg">INFERNO</span>
+        </div>
+        <button class="text-xs font-bold uppercase tracking-widest hover:text-red-500 transition-colors">
+            Rezerwacja
+        </button>
+    </header>
+
+    <!-- ZAAWANSOWANA SEKCJA HERO -->
+    <section class="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#050505]">
+        <!-- Paralaksa w tle na ruch myszki -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=2500&auto=format&fit=crop" 
+                 alt="Ogień z pieca" 
+                 class="w-[105%] h-[105%] -left-[2.5%] -top-[2.5%] absolute object-cover opacity-40 transition-transform duration-700 ease-out"
+                 id="hero-bg">
+            <!-- Winieta przyciemniająca boki i dół -->
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_100%)] opacity-80"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#050505]/40 to-[#050505]"></div>
+        </div>
+
+        <!-- Obracająca się pieczęć (Badge) -->
+        <div class="absolute top-24 right-8 md:right-24 z-20 w-24 h-24 md:w-32 md:h-32 animate-[spin_12s_linear_infinite] opacity-70 pointer-events-none">
+            <svg viewBox="0 0 100 100" class="w-full h-full fill-current text-red-600">
+                <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
+                <text class="text-[11.5px] font-black uppercase tracking-[0.2em]">
+                    <textPath href="#circlePath">Tylko 60 Sekund • 450 Stopni •</textPath>
+                </text>
+            </svg>
+        </div>
+
+        <!-- Główny tekst -->
+        <div id="hero-text" class="relative z-10 w-full px-4 flex flex-col justify-center items-center pointer-events-none mt-8 transition-transform duration-100 ease-out">
+            <!-- Tekst outline (pusty w środku) -->
+            <h1 class="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter leading-[0.8] text-outline">
+                INFERNO
+            </h1>
+            <!-- Główny, pełny tekst z mocnym gradientem -->
+            <h1 class="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-orange-500 relative z-20">
+                NEAPOLITANA
+            </h1>
+            
+            <div class="mt-8 flex flex-col items-center gap-4">
+                <p class="text-white/70 max-w-md text-center text-base md:text-lg font-medium leading-relaxed border-l-2 md:border-l-0 md:border-t-2 border-red-600 pl-4 md:pl-0 md:pt-4">
+                    Bezwzględny kult ciasta i ognia. Wyrabiana ręcznie, wypiekana z rzemieślniczą precyzją, by oddać hołd włoskiej tradycji.
+                </p>
+            </div>
+        </div>
+
+        <!-- Wskaźnik Scrollowania -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-20">
+            <span class="text-[9px] font-bold uppercase tracking-[0.3em] text-white/40">Zanurz się</span>
+            <div class="w-px h-12 bg-white/10 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-full bg-red-600 animate-scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pasek Marquee (Płynący tekst) -->
+    <div class="py-3 bg-red-600 overflow-hidden flex whitespace-nowrap border-y border-red-500/30">
+        <div class="flex animate-marquee w-max">
+            <!-- Pętla dla płynności -->
+            <div class="flex text-lg md:text-2xl font-black uppercase tracking-tighter">
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+            </div>
+            <div class="flex text-lg md:text-2xl font-black uppercase tracking-tighter">
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+                <span class="mx-6 flex items-center gap-4">CIASTO • PASJA • 450 STOPNI <i data-lucide="flame" class="inline w-5 h-5 text-black"></i></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERAKTYWNE MENU -->
+    <section class="relative h-screen bg-[#050505] flex items-center">
+        
+        <!-- Tła zmieniające się w zależności od najechania -->
+        <div class="absolute inset-0 z-0 overflow-hidden" id="menu-backgrounds">
+            <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2000&auto=format&fit=crop" class="menu-bg absolute inset-0 w-full h-full object-cover active" data-index="0">
+            <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=2000&auto=format&fit=crop" class="menu-bg absolute inset-0 w-full h-full object-cover" data-index="1">
+            <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=2000&auto=format&fit=crop" class="menu-bg absolute inset-0 w-full h-full object-cover" data-index="2">
+            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=2000&auto=format&fit=crop" class="menu-bg absolute inset-0 w-full h-full object-cover" data-index="3">
+            
+            <!-- Gradient przyciemniający prawą stronę (dla czytelności tekstu) -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent z-10"></div>
+        </div>
+
+        <div class="relative z-10 max-w-6xl w-full mx-auto px-6 grid grid-cols-1 md:grid-cols-2">
+            <!-- Lista Menu -->
+            <div class="flex flex-col justify-center py-12">
+                <div class="text-red-500 font-bold tracking-[0.15em] uppercase text-xs mb-8">Wybierz swój ogień</div>
+                
+                <div class="menu-item group relative border-b border-white/10 py-4 cursor-pointer" data-index="0">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/40 group-hover:text-white">MARGHERITA</h2>
+                        <span class="text-lg md:text-2xl font-bold text-white/30 group-hover:text-red-500 transition-colors duration-500">34</span>
+                    </div>
+                    <div class="menu-desc">
+                        <p class="text-white/70 max-w-xs text-base italic">San Marzano, bufala, bazylia.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item group relative border-b border-white/10 py-4 cursor-pointer" data-index="1">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/40 group-hover:text-white">DIAVOLA</h2>
+                        <span class="text-lg md:text-2xl font-bold text-white/30 group-hover:text-red-500 transition-colors duration-500">39</span>
+                    </div>
+                    <div class="menu-desc">
+                        <p class="text-white/70 max-w-xs text-base italic">Spianata, płatki chilli, gorący miód.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item group relative border-b border-white/10 py-4 cursor-pointer" data-index="2">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/40 group-hover:text-white">TARTUFO</h2>
+                        <span class="text-lg md:text-2xl font-bold text-white/30 group-hover:text-red-500 transition-colors duration-500">45</span>
+                    </div>
+                    <div class="menu-desc">
+                        <p class="text-white/70 max-w-xs text-base italic">Krem truflowy, portobello, pecorino.</p>
+                    </div>
+                </div>
+
+                <div class="menu-item group relative border-b border-white/10 py-4 cursor-pointer" data-index="3">
+                    <div class="flex items-baseline justify-between">
+                        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white/40 group-hover:text-white">BURRATA</h2>
+                        <span class="text-lg md:text-2xl font-bold text-white/30 group-hover:text-red-500 transition-colors duration-500">42</span>
+                    </div>
+                    <div class="menu-desc">
+                        <p class="text-white/70 max-w-xs text-base italic">Świeża burrata, pesto z pistacji, mortadela.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA D.O.P. - Składniki -->
+    <section class="py-20 px-6 bg-[#050505] border-t border-white/10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-red-500 font-bold tracking-[0.15em] uppercase text-xs mb-8">Święta Trójca</div>
+            <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-12">
+                Bez dobrych składników<br/><span class="text-white/30">nie ma pizzy.</span>
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="group border-t border-white/20 pt-6">
+                    <div class="text-red-600 font-mono text-xl font-bold mb-3">01</div>
+                    <h3 class="text-2xl font-black uppercase tracking-tighter mb-3 group-hover:text-red-500 transition-colors">Mąka Caputo</h3>
+                    <p class="text-white/60 text-base">Typ 00, sprowadzana prosto z młynów w Neapolu. To ona daje ciastu elastyczność i słynną chrupkość na brzegach.</p>
+                </div>
+                <div class="group border-t border-white/20 pt-6">
+                    <div class="text-red-600 font-mono text-xl font-bold mb-3">02</div>
+                    <h3 class="text-2xl font-black uppercase tracking-tighter mb-3 group-hover:text-red-500 transition-colors">San Marzano</h3>
+                    <p class="text-white/60 text-base">Pomidory rosnące wyłącznie na wulkanicznych glebach Wezuwiusza. Słodkie, intensywne, zbierane ręcznie.</p>
+                </div>
+                <div class="group border-t border-white/20 pt-6">
+                    <div class="text-red-600 font-mono text-xl font-bold mb-3">03</div>
+                    <h3 class="text-2xl font-black uppercase tracking-tighter mb-3 group-hover:text-red-500 transition-colors">Fior Di Latte</h3>
+                    <p class="text-white/60 text-base">Świeża mozzarella z mleka krowiego prosto z Kampanii. Idealnie topi się i ciągnie w 450 stopniach Celsjusza.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brutalistyczna sekcja info -->
+    <section class="py-20 px-6 bg-white text-black rounded-t-[2rem] -mt-6 relative z-20">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-none mb-6">
+                    Ręczna<br/>Robota.
+                </h2>
+                <p class="text-lg text-gray-600 leading-relaxed font-medium">
+                    Nie używamy maszyn. Każde ciasto jest wyrabiane ręcznie, dojrzewa przez 48 godzin, a następnie trafia do pieca na drewno bukowe na zaledwie 60 sekund. To sztuka, nie fast food.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <img src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop" class="w-full aspect-[3/4] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500" alt="Robienie ciasta">
+                <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=800&auto=format&fit=crop" class="w-full aspect-[3/4] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500 mt-8" alt="Piec">
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA: IL MAESTRO -->
+    <section class="relative h-screen flex items-center justify-center bg-[#050505] overflow-hidden">
+        <div class="absolute inset-0 z-0 flex md:justify-end">
+            <!-- Zaktualizowane zdjęcie na przygotowywanie pizzy -->
+            <img src="https://images.unsplash.com/photo-1552539618-7eec9b4d1796?q=80&w=2000&auto=format&fit=crop" 
+                 alt="Wkładanie pizzy do pieca" 
+                 class="h-full w-full md:w-2/3 object-cover opacity-50 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-6xl w-full mx-auto px-6">
+            <div class="max-w-lg">
+                <div class="text-red-500 font-bold tracking-[0.15em] uppercase text-xs mb-4">Il Maestro</div>
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter leading-[0.9] mb-6">
+                    Dwadzieścia<br/>Lat<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-600">Praktyki.</span>
+                </h2>
+                <p class="text-lg text-white/70 font-medium italic border-l-2 border-red-600 pl-4 mb-6">
+                    "Pizzę może zrobić każdy. Ale żeby zrobić świetną pizzę, musisz zrozumieć duszę ciasta i szanować żywy ogień. To nie jest po prostu przepis z kartki. To jest uczucie."
+                </p>
+                <p class="text-xs font-bold uppercase tracking-widest text-white/50">
+                    — Marco Rossi, Główny Pizzaiolo
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEKCJA: GALERIA / ATMOSFERA MARQUEE -->
+    <div class="py-12 bg-[#050505] overflow-hidden flex whitespace-nowrap">
+        <div class="flex animate-marquee-slow w-max">
+            <!-- Galeria cz. 1 -->
+            <div class="flex items-center gap-6 px-3">
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+            </div>
+            <!-- Galeria cz. 2 (duplikat dla nieskończonej animacji) -->
+            <div class="flex items-center gap-6 px-3">
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+                <div class="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                    <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" alt="Galeria">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Zaktualizowana Stopka / Kontakt -->
+    <footer class="bg-[#050505] pt-24 pb-8 px-6 border-t border-white/10 relative z-20">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 mb-20">
+            <!-- Lewa: Info -->
+            <div>
+                <h3 class="text-3xl font-black uppercase tracking-tighter mb-8 text-white">Chodź na pizzę.</h3>
+                <div class="space-y-6 text-white/60 text-sm font-medium">
+                    <div class="flex items-start gap-4">
+                        <i data-lucide="map-pin" class="w-5 h-5 text-red-600 shrink-0"></i>
+                        <p>ul. Piekielna 14<br>00-666 Warszawa</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <i data-lucide="phone" class="w-5 h-5 text-red-600 shrink-0"></i>
+                        <p>+48 123 456 789</p>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <i data-lucide="clock" class="w-5 h-5 text-red-600 shrink-0"></i>
+                        <p>Wt - Czw: 13:00 - 22:00<br>Pt - Sob: 13:00 - 23:00<br>Ndz: 13:00 - 21:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prawa: Akcje -->
+            <div class="flex flex-col justify-center gap-4">
+                <div class="text-red-500 font-bold tracking-[0.15em] uppercase text-xs mb-2">Głodny?</div>
+                <button class="w-full md:w-auto px-8 py-4 bg-red-600 text-white font-black uppercase tracking-widest text-sm hover:bg-red-700 transition-colors flex items-center justify-between group">
+                    Zamów z dostawą
+                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-2 transition-transform"></i>
+                </button>
+                <button class="w-full md:w-auto px-8 py-4 bg-transparent border border-white/20 text-white font-black uppercase tracking-widest text-sm hover:bg-white/5 transition-colors flex items-center justify-between group">
+                    Zarezerwuj stolik
+                    <i data-lucide="calendar" class="w-4 h-4 group-hover:scale-110 transition-transform"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Dolny pasek -->
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-white/10 text-white/40 text-xs font-medium uppercase tracking-widest">
+            <div class="flex items-center gap-2">
+                <i data-lucide="flame" class="w-4 h-4 text-red-600"></i>
+                <span>© 2026 INFERNO NEAPOLITANA</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-red-500 transition-colors">Instagram</a>
+                <a href="#" class="hover:text-red-500 transition-colors">Facebook</a>
+                <a href="#" class="hover:text-red-500 transition-colors">TikTok</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Skrypty JS dla interaktywności -->
+    <script>
+        // Inicjalizacja ikon
+        lucide.createIcons();
+
+        // Logika Paralaksa na tło w Hero reagujące na myszkę
+        const heroBg = document.getElementById('hero-bg');
+
+        document.addEventListener('mousemove', (e) => {
+            // Delikatny ruch tła w Hero section w przeciwnym kierunku do myszki
+            if(heroBg && window.scrollY < window.innerHeight) {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20; 
+                const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                heroBg.style.transform = `translate(${-x}px, ${-y}px)`;
+            }
+        });
+
+        // Efekt Paralaksy tekstu na przewijanie (scroll)
+        const heroText = document.getElementById('hero-text');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            // Spowolniony ruch w dół i delikatne zanikanie
+            if(heroText && scrollY < window.innerHeight) {
+                heroText.style.transform = `translateY(${scrollY * 0.4}px)`;
+                heroText.style.opacity = Math.max(1 - scrollY / 500, 0);
+            }
+        });
+
+        // Logika podświetlania menu i zmiany tła
+        const menuItems = document.querySelectorAll('.menu-item');
+        const menuBgs = document.querySelectorAll('.menu-bg');
+
+        menuItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const index = this.getAttribute('data-index');
+                
+                // Usuń klasę active ze wszystkich teł
+                menuBgs.forEach(bg => bg.classList.remove('active'));
+                
+                // Dodaj klasę active do odpowiadającego tła
+                const activeBg = document.querySelector(`.menu-bg[data-index="${index}"]`);
+                if(activeBg) {
+                    activeBg.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
