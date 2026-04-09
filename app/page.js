@@ -161,7 +161,7 @@ export default function Home() {
               INFERNO
             </text>
           </svg>
-          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-normal md:tracking-tighter leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-orange-500 relative z-20">
+          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-normal md:tracking-tighter leading-[0.8] mt-3 md:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-orange-500 relative z-20">
             NEAPOLITANA
           </h1>
           <div className="mt-8 flex flex-col items-center gap-4">
