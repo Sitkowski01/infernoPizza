@@ -59,12 +59,12 @@ export default function Home() {
   return (
     <>
       {/* Pływający Header */}
-      <header className="fixed top-0 left-0 w-full p-6 z-50 flex justify-between items-center mix-blend-difference">
+      <header className="fixed top-0 left-0 w-full px-6 py-4 z-50 flex justify-between items-center bg-[#050505]/90 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:mix-blend-difference">
         <div className="flex items-center gap-2">
           <Flame className="w-5 h-5 text-red-500" />
-          <span className="font-black tracking-tighter text-lg">INFERNO</span>
+          <span className="font-black tracking-tighter text-lg text-white">INFERNO</span>
         </div>
-        <button className="text-xs font-bold uppercase tracking-widest hover:text-red-500 transition-colors">
+        <button className="text-xs font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors">
           Rezerwacja
         </button>
       </header>
@@ -218,12 +218,12 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             <img
               src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop"
-              className="w-full aspect-[3/4] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500"
+              className="w-full aspect-[3/4] object-cover rounded-xl md:grayscale hover:grayscale-0 transition-all duration-500"
               alt="Robienie ciasta"
             />
             <img
               src="https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=800&auto=format&fit=crop"
-              className="w-full aspect-[3/4] object-cover rounded-xl grayscale hover:grayscale-0 transition-all duration-500 mt-8"
+              className="w-full aspect-[3/4] object-cover rounded-xl md:grayscale hover:grayscale-0 transition-all duration-500 mt-8"
               alt="Piec"
             />
           </div>
@@ -267,7 +267,7 @@ export default function Home() {
                 <div key={i} className="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
                   <img
                     src={src}
-                    className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    className="w-full h-full object-cover md:grayscale md:opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                     alt="Galeria"
                   />
                 </div>
@@ -317,9 +317,9 @@ export default function Home() {
             <span>© 2026 INFERNO NEAPOLITANA</span>
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-red-500 transition-colors">Instagram</a>
-            <a href="#" className="hover:text-red-500 transition-colors">Facebook</a>
-            <a href="#" className="hover:text-red-500 transition-colors">TikTok</a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">Instagram</a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">Facebook</a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">TikTok</a>
           </div>
         </div>
       </footer>
