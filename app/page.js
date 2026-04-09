@@ -142,12 +142,20 @@ export default function Home() {
             aria-label="INFERNO"
             role="img"
           >
+            <defs>
+              <filter id="hero-outline" x="-2%" y="-15%" width="104%" height="130%">
+                <feMorphology in="SourceAlpha" operator="dilate" radius="1.2" result="dilated"/>
+                <feComposite in="dilated" in2="SourceAlpha" operator="out" result="ring"/>
+                <feFlood floodColor="rgba(255,255,255,0.4)" result="color"/>
+                <feComposite in="color" in2="ring" operator="in"/>
+              </filter>
+            </defs>
             <text
               x="50%"
               y="100%"
               textAnchor="middle"
-              fill="none"
-              stroke="rgba(255,255,255,0.35)"
+              fill="white"
+              filter="url(#hero-outline)"
               className="hero-title-svg"
             >
               INFERNO
