@@ -109,7 +109,7 @@ body {
   }
 }
 
-.craft-img.tapped {
+.craft-img.in-view {
   filter: grayscale(0);
   opacity: 1;
 }

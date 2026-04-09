@@ -29,6 +29,7 @@ export default function Home() {
   const heroBgRef = useRef(null)
   const heroTextRef = useRef(null)
   const galleryRef = useRef(null)
+  const craftRef = useRef(null)
   const [activeMenuIndex, setActiveMenuIndex] = useState(0)
 
   useEffect(() => {
@@ -55,6 +56,25 @@ export default function Home() {
       document.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('scroll', handleScroll)
     }
+  }, [])
+
+  useEffect(() => {
+    if (!craftRef.current) return
+    const items = craftRef.current.querySelectorAll('.craft-img')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view')
+          } else {
+            entry.target.classList.remove('in-view')
+          }
+        })
+      },
+      { rootMargin: '-20% 0px -20% 0px', threshold: 0 }
+    )
+    items.forEach(item => observer.observe(item))
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -117,10 +137,10 @@ export default function Home() {
           ref={heroTextRef}
           className="relative z-10 w-full px-4 flex flex-col justify-center items-center pointer-events-none mt-8 transition-transform duration-100 ease-out"
         >
-          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter leading-[0.8] text-outline">
+          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-normal md:tracking-tighter leading-[0.8] text-outline">
             INFERNO
           </h1>
-          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-tighter leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-orange-500 relative z-20">
+          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-normal md:tracking-tighter leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-orange-500 relative z-20">
             NEAPOLITANA
           </h1>
           <div className="mt-8 flex flex-col items-center gap-4">
@@ -235,26 +255,16 @@ export default function Home() {
               Nie używamy maszyn. Każde ciasto jest wyrabiane ręcznie, dojrzewa przez 48 godzin, a następnie trafia do pieca na drewno bukowe na zaledwie 60 sekund. To sztuka, nie fast food.
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4" ref={craftRef}>
             <img
               src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop"
               className="craft-img w-full aspect-[3/4] object-cover rounded-xl"
               alt="Robienie ciasta"
-              onClick={(e) => {
-                const el = e.currentTarget
-                el.classList.add('tapped')
-                setTimeout(() => el.classList.remove('tapped'), 1500)
-              }}
             />
             <img
               src="https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=800&auto=format&fit=crop"
               className="craft-img w-full aspect-[3/4] object-cover rounded-xl mt-8"
               alt="Piec"
-              onClick={(e) => {
-                const el = e.currentTarget
-                el.classList.add('tapped')
-                setTimeout(() => el.classList.remove('tapped'), 1500)
-              }}
             />
           </div>
         </div>
@@ -296,12 +306,7 @@ export default function Home() {
               {galleryImages.map((src, i) => (
                 <div
                   key={i}
-                  className="gallery-item w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden cursor-pointer"
-                  onClick={(e) => {
-                    const el = e.currentTarget
-                    el.classList.add('tapped')
-                    setTimeout(() => el.classList.remove('tapped'), 1500)
-                  }}
+                  className="gallery-item w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden"
                 >
                   <img
                     src={src}
