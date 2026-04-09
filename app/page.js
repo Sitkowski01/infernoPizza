@@ -28,6 +28,7 @@ const galleryImages = [
 export default function Home() {
   const heroBgRef = useRef(null)
   const heroTextRef = useRef(null)
+  const galleryRef = useRef(null)
   const [activeMenuIndex, setActiveMenuIndex] = useState(0)
 
   useEffect(() => {
@@ -56,10 +57,29 @@ export default function Home() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!galleryRef.current) return
+    const items = galleryRef.current.querySelectorAll('.gallery-item')
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view')
+          } else {
+            entry.target.classList.remove('in-view')
+          }
+        })
+      },
+      { rootMargin: '0px -28% 0px -28%', threshold: 0 }
+    )
+    items.forEach(item => observer.observe(item))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       {/* Pływający Header */}
-      <header className="fixed top-0 left-0 w-full px-6 py-4 z-50 flex justify-between items-center bg-[#050505]/90 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:mix-blend-difference">
+      <header className="fixed top-0 left-0 w-full px-6 py-4 z-50 flex justify-between items-center bg-[#050505]/90 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none lg:mix-blend-difference">
         <div className="flex items-center gap-2">
           <Flame className="w-5 h-5 text-red-500" />
           <span className="font-black tracking-tighter text-lg text-white">INFERNO</span>
@@ -218,13 +238,23 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             <img
               src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=800&auto=format&fit=crop"
-              className="w-full aspect-[3/4] object-cover rounded-xl md:grayscale hover:grayscale-0 transition-all duration-500"
+              className="craft-img w-full aspect-[3/4] object-cover rounded-xl"
               alt="Robienie ciasta"
+              onClick={(e) => {
+                const el = e.currentTarget
+                el.classList.add('tapped')
+                setTimeout(() => el.classList.remove('tapped'), 1500)
+              }}
             />
             <img
               src="https://images.unsplash.com/photo-1579751626657-72bc17010498?q=80&w=800&auto=format&fit=crop"
-              className="w-full aspect-[3/4] object-cover rounded-xl md:grayscale hover:grayscale-0 transition-all duration-500 mt-8"
+              className="craft-img w-full aspect-[3/4] object-cover rounded-xl mt-8"
               alt="Piec"
+              onClick={(e) => {
+                const el = e.currentTarget
+                el.classList.add('tapped')
+                setTimeout(() => el.classList.remove('tapped'), 1500)
+              }}
             />
           </div>
         </div>
@@ -259,15 +289,23 @@ export default function Home() {
       </section>
 
       {/* GALERIA MARQUEE */}
-      <div className="py-12 bg-[#050505] overflow-hidden flex whitespace-nowrap">
+      <div className="py-12 bg-[#050505] overflow-hidden flex whitespace-nowrap" ref={galleryRef}>
         <div className="flex animate-marquee-slow w-max">
           {[...Array(2)].map((_, dupIdx) => (
             <div key={dupIdx} className="flex items-center gap-6 px-3">
               {galleryImages.map((src, i) => (
-                <div key={i} className="w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden group">
+                <div
+                  key={i}
+                  className="gallery-item w-[200px] h-[300px] md:w-[300px] md:h-[400px] shrink-0 rounded-xl overflow-hidden cursor-pointer"
+                  onClick={(e) => {
+                    const el = e.currentTarget
+                    el.classList.add('tapped')
+                    setTimeout(() => el.classList.remove('tapped'), 1500)
+                  }}
+                >
                   <img
                     src={src}
-                    className="w-full h-full object-cover md:grayscale md:opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    className="w-full h-full object-cover"
                     alt="Galeria"
                   />
                 </div>
