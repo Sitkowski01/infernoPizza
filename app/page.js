@@ -138,7 +138,7 @@ export default function Home() {
           className="relative z-10 w-full px-4 flex flex-col justify-center items-center pointer-events-none mt-8 transition-transform duration-100 ease-out"
         >
           <svg
-            className="w-full overflow-visible block h-[8vw] md:h-[6.5vw] mb-[3vw] md:mb-0"
+            className="w-full overflow-visible block h-[10vw] md:h-[6.5vw]"
             aria-label="INFERNO"
             role="img"
           >
