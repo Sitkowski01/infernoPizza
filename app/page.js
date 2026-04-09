@@ -148,7 +148,6 @@ export default function Home() {
               textAnchor="middle"
               fill="none"
               stroke="rgba(255,255,255,0.35)"
-              strokeWidth="1.2"
               className="hero-title-svg"
             >
               INFERNO

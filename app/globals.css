@@ -37,11 +37,15 @@ body {
   font-weight: 900;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
+  stroke-width: 0.7px;
 }
 
 @media (min-width: 768px) {
   .hero-title-svg {
     font-size: 8vw;
+    letter-spacing: -0.02em;
+    stroke-width: 1.2px;
   }
 }
 
@@ -90,7 +94,7 @@ body {
   transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .gallery-item:hover img {
     filter: grayscale(0);
     opacity: 1;
@@ -98,7 +102,7 @@ body {
   }
 }
 
-@media (hover: none) {
+@media (pointer: coarse) {
   .gallery-item.in-view img {
     filter: grayscale(0);
     opacity: 1;
@@ -111,14 +115,14 @@ body {
   transition: filter 0.5s ease, opacity 0.5s ease;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
   .craft-img:hover {
     filter: grayscale(0);
     opacity: 1;
   }
 }
 
-@media (hover: none) {
+@media (pointer: coarse) {
   .craft-img.in-view {
     filter: grayscale(0);
     opacity: 1;
