@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Flame, MapPin, Phone, Clock, ArrowRight, Calendar } from 'lucide-react'
+import { Flame, MapPin, Phone, Clock, ArrowRight, Calendar, Pizza } from 'lucide-react'
 
 const menuItems = [
   { name: 'MARGHERITA', price: '34', desc: 'San Marzano, bufala, bazylia.' },
@@ -114,8 +114,8 @@ export default function Home() {
         <div className="absolute inset-0 z-0 overflow-hidden">
           <img
             ref={heroBgRef}
-            src="https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?q=80&w=2500&auto=format&fit=crop"
-            alt="Ogień z pieca"
+            src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?q=80&w=2500&auto=format&fit=crop"
+            alt="Pizza neapolitana"
             className="w-[105%] h-[105%] -left-[2.5%] -top-[2.5%] absolute object-cover opacity-40 transition-transform duration-700 ease-out"
           />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_100%)] opacity-80"></div>
@@ -126,8 +126,8 @@ export default function Home() {
         <div className="absolute top-24 right-8 md:right-24 z-20 w-24 h-24 md:w-32 md:h-32 animate-[spin_12s_linear_infinite] opacity-70 pointer-events-none">
           <svg viewBox="0 0 100 100" className="w-full h-full fill-current text-red-600">
             <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
-            <text className="text-[11.5px] font-black uppercase tracking-[0.2em]">
-              <textPath href="#circlePath">Tylko 60 Sekund • 450 Stopni •</textPath>
+            <text className="text-[10px] font-black uppercase">
+              <textPath href="#circlePath" textLength="225" lengthAdjust="spacing">TRADYCJA • INFERNO • NEAPOL •</textPath>
             </text>
           </svg>
         </div>
@@ -137,9 +137,23 @@ export default function Home() {
           ref={heroTextRef}
           className="relative z-10 w-full px-4 flex flex-col justify-center items-center pointer-events-none mt-8 transition-transform duration-100 ease-out"
         >
-          <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-normal md:tracking-tighter leading-[0.8] text-outline">
-            INFERNO
-          </h1>
+          <svg
+            className="w-full overflow-visible block h-[8vw] md:h-[6.5vw]"
+            aria-label="INFERNO"
+            role="img"
+          >
+            <text
+              x="50%"
+              y="100%"
+              textAnchor="middle"
+              fill="none"
+              stroke="rgba(255,255,255,0.35)"
+              strokeWidth="1.2"
+              className="hero-title-svg"
+            >
+              INFERNO
+            </text>
+          </svg>
           <h1 className="text-[10vw] md:text-[8vw] font-black uppercase tracking-normal md:tracking-tighter leading-[0.8] text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-orange-500 relative z-20">
             NEAPOLITANA
           </h1>
@@ -165,14 +179,14 @@ export default function Home() {
           <div className="flex text-lg md:text-2xl font-black uppercase tracking-tighter">
             {[...Array(4)].map((_, i) => (
               <span key={i} className="mx-6 flex items-center gap-4">
-                CIASTO • PASJA • 450 STOPNI <Flame className="inline w-5 h-5 text-black" />
+                CIASTO • PASJA • 450 STOPNI <Pizza className="inline w-5 h-5 text-black" />
               </span>
             ))}
           </div>
           <div className="flex text-lg md:text-2xl font-black uppercase tracking-tighter">
             {[...Array(4)].map((_, i) => (
               <span key={i} className="mx-6 flex items-center gap-4">
-                CIASTO • PASJA • 450 STOPNI <Flame className="inline w-5 h-5 text-black" />
+                CIASTO • PASJA • 450 STOPNI <Pizza className="inline w-5 h-5 text-black" />
               </span>
             ))}
           </div>
