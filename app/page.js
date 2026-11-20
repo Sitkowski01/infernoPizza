@@ -387,7 +387,7 @@ export default function Home() {
           </div>
         </div>
         <p className="max-w-6xl mx-auto mt-6 text-center text-white/40 text-xs font-medium break-words">
-          Projekt i wykonanie: Mikołaj Sitek, <a href="https://swndevelopment.pl" target="_blank" rel="noopener" className="underline hover:text-red-500 transition-colors">SWN Development</a> · <a href="mailto:mikolaj@swndevelopment.pl" className="underline hover:text-red-500 transition-colors">mikolaj@swndevelopment.pl</a>
+          Projekt i wykonanie: <a href="https://sitekmikolaj.pl" target="_blank" rel="noopener" className="underline hover:text-red-500 transition-colors">Mikołaj Sitek</a> · <a href="mailto:sitekmikolaj01@gmail.com" className="underline hover:text-red-500 transition-colors">sitekmikolaj01@gmail.com</a>
         </p>
       </footer>
     </>
