@@ -386,6 +386,9 @@ export default function Home() {
             <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" className="hover:text-red-500 transition-colors">TikTok</a>
           </div>
         </div>
+        <p className="max-w-6xl mx-auto mt-6 text-center text-white/40 text-xs font-medium break-words">
+          Projekt i wykonanie: Mikołaj Sitek, <a href="https://swndevelopment.pl" target="_blank" rel="noopener" className="underline hover:text-red-500 transition-colors">SWN Development</a> · <a href="mailto:mikolaj@swndevelopment.pl" className="underline hover:text-red-500 transition-colors">mikolaj@swndevelopment.pl</a>
+        </p>
       </footer>
     </>
   )
